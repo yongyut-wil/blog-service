@@ -34,5 +34,11 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add backend.yaml
-          git commit -m "Update backend image tag to ${{ github.sha }}"
-          git push
+          
+          # ตรวจสอบว่ามีการเปลี่ยนแปลงหรือไม่ ก่อน commit และ push
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Update backend image tag to ${{ github.sha }}"
+            git push
+          else
+            echo "No changes to backend.yaml, skipping push."
+          fi
