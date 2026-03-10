@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile && yarn cache clean
 COPY . .
-RUN npm run build
+RUN yarn build
 
 FROM node:24.14.0-alpine
 WORKDIR /app
