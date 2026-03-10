@@ -1,14 +1,14 @@
 FROM node:24.14.0-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 COPY . .
 RUN npm run build
 
 FROM node:24.14.0-alpine
 WORKDIR /app
-COPY --from=builder /app/package*.json ./
-RUN npm ci --only=production
+COPY --from=builder /app/package.json /app/yarn.lock ./
+RUN yarn install --production --frozen-lockfile
 COPY --from=builder /app/dist ./dist
 EXPOSE 3000
 CMD ["node", "dist/main"]
