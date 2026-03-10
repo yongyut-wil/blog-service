@@ -1,0 +1,13 @@
+node_modules
+dist
+test
+.git
+.github
+*.md
+Dockerfile
+.dockerignore
+.prettierrc
+eslint.config.mjs
+nest-cli.json
+tsconfig.build.json
+tsconfig.json
